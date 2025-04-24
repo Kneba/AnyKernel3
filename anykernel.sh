@@ -4,17 +4,17 @@
 ### AnyKernel setup
 # global properties
 properties() { '
-kernel.string=ExampleKernel by osm0sis @ xda-developers
+kernel.string=TheOneMemoryKernel by Kneba @ xda-developers
 do.devicecheck=1
 do.modules=0
 do.systemless=1
 do.cleanup=1
 do.cleanuponabort=0
-device.name1=maguro
-device.name2=toro
-device.name3=toroplus
-device.name4=tuna
-device.name5=
+device.name1=X00TD
+device.name2=X00T
+device.name3=Zenfone Max Pro M1 (X00TD)
+device.name4=ASUS_X00TD
+device.name5=ASUS_X00T
 supported.versions=
 supported.patchlevels=
 supported.vendorpatchlevels=
@@ -29,13 +29,27 @@ set_perm_recursive 0 0 750 750 $RAMDISK/init* $RAMDISK/sbin;
 } # end attributes
 
 # boot shell variables
-BLOCK=/dev/block/platform/omap/omap_hsmmc.0/by-name/boot;
+BLOCK=/dev/block/platform/soc/c0c4000.sdhci/by-name/boot;
 IS_SLOT_DEVICE=0;
 RAMDISK_COMPRESSION=auto;
 PATCH_VBMETA_FLAG=auto;
+NO_BLOCK_DISPLAY=1;
 
 # import functions/variables and setup patching - see for reference (DO NOT REMOVE)
 . tools/ak3-core.sh;
+
+# Mount partitions as rw
+mount /system;
+mount /vendor;
+mount -o remount,rw /system;
+mount -o remount,rw /vendor;
+
+## AnyKernel file attributes
+# set permissions/ownership for included ramdisk files
+chmod -R 750 $RAMDISK/*;
+chmod -R 755 $RAMDISK/sbin;
+chmod -R root:root $RAMDISK/*;
+# end attributes
 
 # boot install
 dump_boot; # use split_boot to skip ramdisk unpack, e.g. for devices with init_boot ramdisk
@@ -45,16 +59,16 @@ backup_file init.rc;
 replace_string init.rc "cpuctl cpu,timer_slack" "mount cgroup none /dev/cpuctl cpu" "mount cgroup none /dev/cpuctl cpu,timer_slack";
 
 # init.tuna.rc
-backup_file init.tuna.rc;
-insert_line init.tuna.rc "nodiratime barrier=0" after "mount_all /fstab.tuna" "\tmount ext4 /dev/block/platform/omap/omap_hsmmc.0/by-name/userdata /data remount nosuid nodev noatime nodiratime barrier=0";
-append_file init.tuna.rc "bootscript" init.tuna;
+#backup_file init.tuna.rc;
+#insert_line init.tuna.rc "nodiratime barrier=0" after "mount_all /fstab.tuna" "\tmount ext4 /dev/block/platform/omap/omap_hsmmc.0/by-name/userdata /data remount nosuid nodev noatime nodiratime barrier=0";
+#append_file init.tuna.rc "bootscript" init.tuna;
 
 # fstab.tuna
-backup_file fstab.tuna;
-patch_fstab fstab.tuna /system ext4 options "noatime,barrier=1" "noatime,nodiratime,barrier=0";
-patch_fstab fstab.tuna /cache ext4 options "barrier=1" "barrier=0,nomblk_io_submit";
-patch_fstab fstab.tuna /data ext4 options "data=ordered" "nomblk_io_submit,data=writeback";
-append_file fstab.tuna "usbdisk" fstab;
+#backup_file fstab.tuna;
+#patch_fstab fstab.tuna /system ext4 options "noatime,barrier=1" "noatime,nodiratime,barrier=0";
+#patch_fstab fstab.tuna /cache ext4 options "barrier=1" "barrier=0,nomblk_io_submit";
+#patch_fstab fstab.tuna /data ext4 options "data=ordered" "nomblk_io_submit,data=writeback";
+#append_file fstab.tuna "usbdisk" fstab;
 
 write_boot; # use flash_boot to skip ramdisk repack, e.g. for devices with init_boot ramdisk
 ## end boot install
@@ -118,4 +132,3 @@ write_boot; # use flash_boot to skip ramdisk repack, e.g. for devices with init_
 
 #write_boot; # use flash_boot to skip ramdisk repack, e.g. for dtb on devices with hdr v4 but no vendor_kernel_boot
 ## end vendor_boot install
-
