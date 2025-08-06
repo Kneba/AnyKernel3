@@ -10,7 +10,6 @@ BIN=$AKHOME/tools;
 PATCH=$AKHOME/patch;
 RAMDISK=$AKHOME/ramdisk;
 SPLITIMG=$AKHOME/split_img;
-BB=$BIN/busybox;
 
 # Disable Block Path Display
 no_block_display=1

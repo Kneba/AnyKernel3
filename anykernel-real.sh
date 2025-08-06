@@ -200,11 +200,11 @@ if [ ! -f /vendor/etc/powerhint.xml ]; then
 fi
 
 # Switch SELinux
-if [ "`$BB grep -w "selected.3=2" /tmp/aroma-data/spectrum.prop`" ] || [ "`$BB grep -w "selected.3=1" /tmp/aroma-data/spectrum.prop`" ];then
-if [ "`$BB grep -w "selected.3=1" /tmp/aroma-data/spectrum.prop`" ];then
+if [ "` grep -w "selected.3=2" /tmp/aroma-data/spectrum.prop`" ] || [ "` grep -w "selected.3=1" /tmp/aroma-data/spectrum.prop`" ];then
+if [ "` grep -w "selected.3=1" /tmp/aroma-data/spectrum.prop`" ];then
 	patch_cmdline androidboot.selinux androidboot.selinux=enforcing
 	SELINUXSTATE="Enforcing"
-elif [ "`$BB grep -w "selected.3=2" /tmp/aroma-data/spectrum.prop`" ];then
+elif [ "` grep -w "selected.3=2" /tmp/aroma-data/spectrum.prop`" ];then
 	patch_cmdline androidboot.selinux androidboot.selinux=permissive
 	SELINUXSTATE="Permissive"
 fi
@@ -224,27 +224,27 @@ android_ver=$(file_getprop /system/build.prop ro.build.version.release);
 patch_cmdline androidboot.version androidboot.version=$android_ver
 
 # Refresh Rate Changer
-if [ "`$BB grep -w "selected.3=1" /tmp/aroma-data/refrate.prop`" ];then
+if [ "` grep -w "selected.3=1" /tmp/aroma-data/refrate.prop`" ];then
 RR=48
-elif [ "`$BB grep -w "selected.3=2" /tmp/aroma-data/refrate.prop`" ];then
+elif [ "` grep -w "selected.3=2" /tmp/aroma-data/refrate.prop`" ];then
 RR=50
-elif [ "`$BB grep -w "selected.3=3" /tmp/aroma-data/refrate.prop`" ];then
+elif [ "` grep -w "selected.3=3" /tmp/aroma-data/refrate.prop`" ];then
 RR=55
-elif [ "`$BB grep -w "selected.3=5" /tmp/aroma-data/refrate.prop`" ];then
+elif [ "` grep -w "selected.3=5" /tmp/aroma-data/refrate.prop`" ];then
 RR=62
-elif [ "`$BB grep -w "selected.3=6" /tmp/aroma-data/refrate.prop`" ];then
+elif [ "` grep -w "selected.3=6" /tmp/aroma-data/refrate.prop`" ];then
 RR=64
-elif [ "`$BB grep -w "selected.3=7" /tmp/aroma-data/refrate.prop`" ];then
+elif [ "` grep -w "selected.3=7" /tmp/aroma-data/refrate.prop`" ];then
 RR=65
-elif [ "`$BB grep -w "selected.3=8" /tmp/aroma-data/refrate.prop`" ];then
+elif [ "` grep -w "selected.3=8" /tmp/aroma-data/refrate.prop`" ];then
 RR=67
-elif [ "`$BB grep -w "selected.3=9" /tmp/aroma-data/refrate.prop`" ];then
+elif [ "` grep -w "selected.3=9" /tmp/aroma-data/refrate.prop`" ];then
 RR=68
-elif [ "`$BB grep -w "selected.3=10" /tmp/aroma-data/refrate.prop`" ];then
+elif [ "` grep -w "selected.3=10" /tmp/aroma-data/refrate.prop`" ];then
 RR=69
-elif [ "`$BB grep -w "selected.3=11" /tmp/aroma-data/refrate.prop`" ];then
+elif [ "` grep -w "selected.3=11" /tmp/aroma-data/refrate.prop`" ];then
 RR=70
-elif [ "`$BB grep -w "selected.3=12" /tmp/aroma-data/refrate.prop`" ];then
+elif [ "` grep -w "selected.3=12" /tmp/aroma-data/refrate.prop`" ];then
 RR=72
 else
 RR=60
@@ -281,7 +281,7 @@ fi;
 patch_cmdline led.vibration led.vibration=0
 }
 
-if [ "`$BB grep -w "selected.2=1" /tmp/aroma-data/refrate.prop`" ];then
+if [ "` grep -w "selected.2=1" /tmp/aroma-data/refrate.prop`" ];then
 	if [ "$android_ver" -lt "11" ];then
 	if [ "$REG" = "IDN" ] || [ "$REG" = "SUN" ];then
 	ui_print "! Versi Android tidak didukung untuk LV. NLV diatur sebagai default !";
@@ -304,8 +304,8 @@ else
 fi;
 
 # KernelSU Support
-if [ "`$BB grep -w "selected.1=1" /tmp/aroma-data/refrate.prop`" ] || [ "`$BB grep -w "selected.1=2" /tmp/aroma-data/refrate.prop`" ];then
-if [ "`$BB grep -w "selected.1=2" /tmp/aroma-data/refrate.prop`" ];then
+if [ "` grep -w "selected.1=1" /tmp/aroma-data/refrate.prop`" ] || [ "` grep -w "selected.1=2" /tmp/aroma-data/refrate.prop`" ];then
+if [ "` grep -w "selected.1=2" /tmp/aroma-data/refrate.prop`" ];then
 patch_cmdline kernelsu.safemode kernelsu.safemode=1
 if [ "$REG" = "IDN" ] || [ "$REG" = "SUN" ] || [ "$REG" = "JAV" ];then
 KSUSAFEMODE=" (Mode Aman)"
