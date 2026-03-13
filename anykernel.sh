@@ -10,16 +10,15 @@ do.modules=0
 do.systemless=1
 do.cleanup=1
 do.cleanuponabort=0
-device.name1=X00TD
-device.name2=X00T
-device.name3=Zenfone Max Pro M1 (X00TD)
-device.name4=ASUS_X00TD
-device.name5=ASUS_X00T
+device.name1=X01BD
+device.name2=X01BDA
+device.name3=Zenfone Max Pro M2 (X01BD)
+device.name4=ASUS_X01BD
+device.name5=ASUS_X01BDA
 supported.versions=
 supported.patchlevels=
 supported.vendorpatchlevels=
 '; } # end properties
-
 
 ### AnyKernel install
 ## boot files attributes
@@ -29,7 +28,7 @@ set_perm_recursive 0 0 750 750 $RAMDISK/init* $RAMDISK/sbin;
 } # end attributes
 
 # boot shell variables
-BLOCK=/dev/block/platform/soc/c0c4000.sdhci/by-name/boot;
+BLOCK=/dev/block/bootdevice/by-name/boot;
 IS_SLOT_DEVICE=0;
 RAMDISK_COMPRESSION=auto;
 PATCH_VBMETA_FLAG=auto;
